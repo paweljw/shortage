@@ -5,7 +5,7 @@ defmodule ShortageWeb.LinkController do
   alias Shortage.Redirects.Link
 
   def index(conn, _params) do
-    links = Redirects.list_links()
+    links = Redirects.list_links_with_visits()
     render(conn, "index.html", links: links)
   end
 

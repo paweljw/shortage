@@ -15,6 +15,11 @@
     %>
   </li>
 
+  <li>
+    <strong>Visits:</strong>
+    <%= @link.visit_count %>
+  </li>
+
 </ul>
 
 <span><%= link "Back", to: Routes.link_path(@conn, :index) %></span>

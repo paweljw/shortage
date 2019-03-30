@@ -9,6 +9,9 @@ defmodule Shortage.Redirects.Link do
     field :target, :string
 
     timestamps()
+
+    field :visit_count, :integer, virtual: true
+    has_many :visits, Shortage.Redirects.Visit
   end
 
   @doc false

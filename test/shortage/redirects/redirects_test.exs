@@ -63,4 +63,65 @@ defmodule Shortage.RedirectsTest do
       assert %Ecto.Changeset{} = Redirects.change_link(link)
     end
   end
+
+  describe "visits" do
+    alias Shortage.Redirects.Visit
+
+    @valid_attrs %{count: 42, visited_on: ~D[2010-04-17]}
+    @update_attrs %{count: 43, visited_on: ~D[2011-05-18]}
+    @invalid_attrs %{count: nil, visited_on: nil}
+
+    def visit_fixture(attrs \\ %{}) do
+      {:ok, visit} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Redirects.create_visit()
+
+      visit
+    end
+
+    test "list_visits/0 returns all visits" do
+      visit = visit_fixture()
+      assert Redirects.list_visits() == [visit]
+    end
+
+    test "get_visit!/1 returns the visit with given id" do
+      visit = visit_fixture()
+      assert Redirects.get_visit!(visit.id) == visit
+    end
+
+    test "create_visit/1 with valid data creates a visit" do
+      assert {:ok, %Visit{} = visit} = Redirects.create_visit(@valid_attrs)
+      assert visit.count == 42
+      assert visit.visited_on == ~D[2010-04-17]
+    end
+
+    test "create_visit/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Redirects.create_visit(@invalid_attrs)
+    end
+
+    test "update_visit/2 with valid data updates the visit" do
+      visit = visit_fixture()
+      assert {:ok, %Visit{} = visit} = Redirects.update_visit(visit, @update_attrs)
+      assert visit.count == 43
+      assert visit.visited_on == ~D[2011-05-18]
+    end
+
+    test "update_visit/2 with invalid data returns error changeset" do
+      visit = visit_fixture()
+      assert {:error, %Ecto.Changeset{}} = Redirects.update_visit(visit, @invalid_attrs)
+      assert visit == Redirects.get_visit!(visit.id)
+    end
+
+    test "delete_visit/1 deletes the visit" do
+      visit = visit_fixture()
+      assert {:ok, %Visit{}} = Redirects.delete_visit(visit)
+      assert_raise Ecto.NoResultsError, fn -> Redirects.get_visit!(visit.id) end
+    end
+
+    test "change_visit/1 returns a visit changeset" do
+      visit = visit_fixture()
+      assert %Ecto.Changeset{} = Redirects.change_visit(visit)
+    end
+  end
 end

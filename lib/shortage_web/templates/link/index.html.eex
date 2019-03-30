@@ -5,7 +5,7 @@
     <tr>
       <th>Target</th>
       <th>Short</th>
-
+      <th>Count</th>
       <th></th>
     </tr>
   </thead>
@@ -14,7 +14,7 @@
     <tr>
       <td><%= link.target %></td>
       <td><%= Routes.shortened_url(@conn, :show, link.short) %></td>
-
+      <td><%= link.visit_count %></td>
       <td>
         <%= link "Show", to: Routes.link_path(@conn, :show, link) %>
         <%= link "Delete", to: Routes.link_path(@conn, :delete, link), method: :delete, data: [confirm: "Are you sure?"] %>

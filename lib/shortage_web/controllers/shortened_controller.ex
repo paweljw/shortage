@@ -4,6 +4,7 @@ defmodule ShortageWeb.ShortenedController do
 
   def show(conn, %{"shortened" => shortened}) do
     link = Redirects.get_link_by_short!(shortened)
+    Redirects.increment_visit(link)
     redirect(conn, external: link.target)
   end
 end
