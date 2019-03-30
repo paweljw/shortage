@@ -1,3 +1,6 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
+.bg-brand {
+  background-color: #802961;
+  color: #fff;
+}
