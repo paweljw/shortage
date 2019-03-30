@@ -1,25 +1,16 @@
-<h1>Show Link</h1>
+<h1 class="d-flex justify-content-between flex-column flex-md-row align-bottom">
+  <span><%= link @link.target, to: @link.target %></span>
+  <span >All-time visits: <strong><%= @link.visit_count %></strong></small>
+</h1>
 
-<ul>
-
-  <li>
-    <strong>Target:</strong>
-    <%= link @link.target, to: @link.target %>
-  </li>
-
-  <li>
-    <strong>Short:</strong>
+<div class="card my-4 bg-white">
+  <div class="card-body">
+    <h5 class="card-title">Your shortened link</h5>
     <%=
       link Routes.shortened_url(@conn, :show, @link.short),
       to: Routes.shortened_url(@conn, :show, @link.short)
     %>
-  </li>
+  </div>
+</div>
 
-  <li>
-    <strong>Visits:</strong>
-    <%= @link.visit_count %>
-  </li>
-
-</ul>
-
-<span><%= link "Back", to: Routes.link_path(@conn, :index) %></span>
+<%= raw Chartkick.line_chart @visits, defer: true, discrete: true %>

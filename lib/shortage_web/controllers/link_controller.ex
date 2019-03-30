@@ -31,7 +31,15 @@ defmodule ShortageWeb.LinkController do
 
   def show(conn, %{"id" => id}) do
     link = Redirects.get_link!(id)
-    render(conn, "show.html", link: link)
+
+    # TODO: sorting
+    visits =
+      Shortage.Redirects.get_link_visits(link.id)
+      |> Enum.map(fn v -> {v.visited_on, v.count} end)
+      |> Map.new()
+      |> Poison.encode!()
+
+    render(conn, "show.html", link: link, visits: visits)
   end
 
   def delete(conn, %{"id" => id}) do

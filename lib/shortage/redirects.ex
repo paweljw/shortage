@@ -55,6 +55,10 @@ defmodule Shortage.Redirects do
     )
   end
 
+  def get_link_visits(id) do
+    Repo.all(from v in Visit, order_by: :visited_on, where: v.link_id == ^id)
+  end
+
   def get_link_by_short!(short), do: Repo.get_by!(Link, short: short)
 
   @doc """
